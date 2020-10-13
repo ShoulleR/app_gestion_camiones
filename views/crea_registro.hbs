@@ -1,0 +1,105 @@
+{{> head }}
+
+{{> navbar }}
+
+
+<div class="container container-fluid" style="height:86%">
+       <div class="form m-1" style="top: 12vh;">
+           <form id="form" class="form-group">
+            <h1 class="m-1">Creación</h1>
+            <p>Rellena los Datos</p>
+            <hr>
+            <label><b>Patente</b></label>
+            <input class="form-control" type="text" maxlength="7" id="patente" placeholder="Patente" autocomplete="off" required>
+
+            <label><b>AWB</b></label>
+            <input class="form-control" type="text"  maxlength="12" id="awb" placeholder="AWB" name="awb" autocomplete="off" required>
+
+            <label><b>Agencia</b></label>  
+            <select class="form-control" name="agencia" id="agencia" required>
+             <option disabled selected>Seleccione una opción</option>
+             {{#each agencias}}
+             <option value="{{id_agencia}}">{{nombre}}</option>
+             {{/each}}
+            </select>
+
+            <label><b>Exportador</b></label>
+            <select class="form-control" name="exportador" id="exportador" required>
+             <option disabled selected>Seleccione una opción</option>
+             {{#each exportador}}
+             <option value="{{id_exportador}}">{{nombre}}</option>
+             {{/each}}
+            </select>
+            <br>
+            <label><b>Subir Imagen</b></label>
+            <button id="boton-crear" class="btn btn-primary">ir a fotografia</button>
+            <a style="float:right" class="btn btn-primary" href="/dashboard">Cancelar</a> 
+         </form>
+        </div>
+    </div>
+
+
+    <script>
+        var agencia="";
+        $('#agencia').on('change',function(event) {
+            
+     agencia = $(this).val();
+});
+
+
+    var exportador="";
+    $('#exportador').on('change',function(event) {
+
+     exportador = $(this).val();
+});
+
+     $("#boton-crear").on('click', function(e){
+        e.preventDefault();
+        let patente = $("#patente").val();
+        let awb = $("#awb").val();
+        
+        let myRegex = /[0-9]{3}[-][0-9]{8}$/g;
+        if(agencia == "" || exportador == "" || patente == "" || awb == ""){
+            Swal.fire({
+                icon:'error',
+                html:'<span style="background:white"><strong>Debe Rellenar los Datos</strong></span>'
+
+            })
+        }else if(myRegex.test(awb)===false){
+            Swal.fire({
+                html:'<h4 style="background-color:white">AWB debe ser Valido Ejemplo: 123-12345678</h4>'
+            });
+        }else{
+            fetch('/plusregistro',{
+                method:'POST',
+                headers:{'Content-type':'application/json'},
+                body:JSON.stringify({agencia:agencia,exportador:exportador,patente:patente,awb:awb})
+            }).then(res => res.text())
+              .then(data =>{
+                  if(data){
+                      Swal.fire({
+                          icon:'success',
+                          html:'<span style="background:white"><strong>Procedemos a tomar las fotos</strong></span>',
+                          showConfirmButton: true,
+                          onClose: () => {
+                            location.replace(`/cimagenes/${data}`);
+                        }
+                      })
+                  }
+              })
+        }
+
+   
+    })
+    </script>
+     
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+
+
+
+

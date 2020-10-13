@@ -1,0 +1,82 @@
+
+
+<div class="container">
+  <div class="container_login center">
+    <h2>Bienvenido</h2>
+  <form>
+    <div class="form-group">
+      <label class="form-control" for="email"><i class="fa fa-user"></i><strong> Email</strong></label>
+      <input type="email" class="form-control" id="email" placeholder=" Email" name="email" autofocus autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label class="form-control" for="pwd"><i class="fa fa-lock"></i><strong> Contraseña</strong></label>
+      <input type="password" class="form-control" id="pwd" placeholder=" Contraseña" name="pswd" autocomplete="off">
+    </div>
+    <button id="boton-login" type="button" class="boton-login"><strong>Login</strong></button>
+  </form>
+    </div>
+</div>
+
+<script>
+
+  $("#boton-login").on('click',function(e) {
+    
+    e.preventDefault();
+
+    let email = $("#email").val();
+    let pwd = $("#pwd").val();
+
+    fetch('/usuario',{
+      method:'POST', 
+      headers:{'Content-type': 'application/json'}, 
+      body: JSON.stringify({email:email, pwd:pwd})
+      })
+    .then(res => res.text())
+    .then(data => {
+
+      if(data==="Vacio"){
+
+        Swal.fire({
+          icon:'error',
+          html:'<span style="background:white color:black"><strong>Error! Usuario no Registrado.</strong><span>'
+        });
+
+      }
+      if(data ==="Error"){
+        Swal.fire({
+        icon: 'error',
+        html:'<span style="background:white color:black"><strong>Usuario o Contraseña Incorrectos.</strong><span>'
+        });
+      }
+
+
+      if(data==="Success"){
+  
+        Swal.fire({
+            icon: "success",
+            html:'<span style="background:white color:black"><strong>Conectado Con Exito!</strong><span>',
+            timer:1000,
+            showConfirmButton: false,
+            
+          onClose: () => {
+           window.location = "dashboard";
+          }
+        });
+    
+      }
+
+      if(data==="Inactivo"){
+        Swal.fire({
+        icon: 'error',
+        html:'<span style="background:white color:black"><strong>Usuario Bloqueado</strong><span>'
+        });
+      }
+
+    });
+
+  });
+  </script>
+
+
+
+

@@ -1,0 +1,76 @@
+{{> head }}
+
+{{> navbar }}
+
+
+<div class="container">
+       <div class="form" style="top: 15vh;">
+           <form id="form" class="form-group">
+            <h1>Creación</h1>
+            <p>Rellena los Datos</p>
+            <hr>
+            <label><b>Agencia</b></label>
+            <input class="form-control" type="text"  id="nombre" placeholder="Nombre" name="nombre" autocomplete="off" required>
+            
+            <label><b>Contacto</b></label>
+            <input class="form-control" type="email"  id="email" placeholder="Email" name="email"  autocomplete="off" required>
+
+            <hr>
+            <button id="boton-crear" class="btn btn-primary">Crear</button>
+            <a style="float:right" class="btn btn-primary" href="/cagencias">Volver</a> 
+         </form>
+        </div>
+    </div>
+  
+
+    <script>
+
+      
+   $("#boton-crear").on('click',function(e) {
+
+    e.preventDefault();
+
+  
+
+    let email = $("#email").val();
+    let nombre = $("#nombre").val();
+
+
+
+    fetch('/plusagencia',{
+        method:'POST',
+        headers:{'Content-type': 'application/json'}, 
+        body: JSON.stringify({nombre:nombre,email:email})
+        
+        }).then(res => res.text())
+          .then(data =>{
+            if(data==="vacio"){
+              Swal.fire({
+                icon:'error',
+                html:'<span style="background:white color:black"><strong>Debe Rellenar los datos</strong><span>'
+              });
+            }
+              if(data==="Success"){
+  
+             Swal.fire({
+                    icon: "success",
+                    html:'<span style="background:white color:black"><strong>Creado Con Exito!</strong><span>',
+                    timer:1000,
+                    showConfirmButton: false,
+            
+                onClose: () => {
+                location.replace("/cagencias");
+                }
+        });
+      }
+    })
+});
+     </script>     
+
+
+
+
+
+
+
+    {{> footer }}

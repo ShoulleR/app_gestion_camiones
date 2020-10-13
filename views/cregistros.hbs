@@ -1,0 +1,44 @@
+{{> head }}
+
+
+{{> navbar }}
+
+<div class="container">
+  <h1 style="position: absolute; top:20vh"><strong>Control Registros</strong></h1>
+   <table style="display:flex;flex-direction:column" class="table table-dark table-responsive-xl">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Agencia</th>
+      <th scope="col">Exportador</th>
+      <th scope="col">Patente</th>
+      <th scope="col">AWB</th>
+      <th scope="col">Fecha Creación</th>
+      <th scope="col">Opciones</th>  
+    </tr>
+  </thead>
+  <tbody style="max-height: 300px;overflow:auto">
+      {{#each registros}}
+    <tr>
+      <td scope="row">{{id_registro}}</td>
+      <td>{{n_agencias}}</td>
+      <td>{{n_exportador}}</td>
+      <td>{{patente}}</td>
+      <td>{{awb}}</td>
+      <td>{{fecha_creacion}}</td>
+      <td>
+        <a style="color:white" class="p-2" href="/renderimagen/{{id_registro}}"><i class="fa fa-camera"></i></a>
+        </td>
+    </tr>
+    {{/each}}
+  </tbody>
+        </table>    
+</div>
+<div style="position:absolute;bottom:6%;right:6%;">
+<a class="btn btn-dark" href="/dashboard" style="color:rgb(247, 213, 213);">Volver</a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

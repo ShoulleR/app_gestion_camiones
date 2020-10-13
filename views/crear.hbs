@@ -1,0 +1,93 @@
+{{> head }}
+
+{{> navbar }}
+
+
+<div class="container">
+       <div class="form" style="top: 15vh;">
+           <form id="form" class="form-group">
+            <h1>Creación</h1>
+            <p>Rellena los Datos</p>
+            <hr>
+            <label><b>Nombre</b></label>
+            <input class="form-control" type="text"  id="nombre" placeholder="Nombre" name="nombre" autocomplete="off" required>
+            
+            <label><b>Email</b></label>
+            <input class="form-control" type="email"  id="email" placeholder="Email" name="email"  autocomplete="off" required>
+
+            <label><b>Contraseña</b></label>
+            <input class="form-control" type="password" id="pwd" placeholder="Contraseña" name="pwd"  autocomplete="off" required>    
+
+            <label for="sel1"><b>Cargo</b></label>
+            <select class="form-control" name="sel1" id="sel1" required>
+             <option disabled selected>Seleccione un Cargo</option>
+             <option value="OP_ROLE">OP_ROLE</option>
+             <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+            </select>
+            <hr>
+            <button id="boton-crear" class="btn btn-primary">Crear</button>
+            <a style="float:right" class="btn btn-primary" href="/cusuarios">Volver</a> 
+         </form>
+        </div>
+    </div>
+  
+
+    <script>
+
+ var role;
+
+    $('#sel1').on('change',function(event) {
+
+     role = $(this).val();
+});
+
+      
+   $("#boton-crear").on('click',function(e) {
+
+    e.preventDefault();
+
+  
+
+    let email = $("#email").val();
+    let nombre = $("#nombre").val();
+    let pwd = $("#pwd").val();
+
+
+
+    fetch('/crear',{
+        method:'POST',
+        headers:{'Content-type': 'application/json'}, 
+        body: JSON.stringify({nombre:nombre,email:email,pwd:pwd,role:role})
+        
+        }).then(res => res.text())
+          .then(data =>{
+            if(data==="vacio"){
+              Swal.fire({
+                icon:'error',
+                html:'<span style="background:white color:black"><strong>Debe Rellenar los datos</strong><span>'
+              });
+            }
+              if(data==="Success"){
+  
+             Swal.fire({
+                    icon: "success",
+                    html:'<span style="background:white color:black"><strong>Creado Con Exito!</strong><span>',
+                    timer:1000,
+                    showConfirmButton: false,
+            
+                onClose: () => {
+                location.replace("/cusuarios");
+                }
+        });
+      }
+    })
+});
+     </script>     
+
+
+
+
+
+
+
+    {{> footer }}

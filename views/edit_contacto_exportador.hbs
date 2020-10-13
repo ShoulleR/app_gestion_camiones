@@ -1,0 +1,73 @@
+{{> head }}
+
+{{> navbar }}
+
+
+<div class="container">
+       <div class="form">
+           <form id="form" class="form-group" action="/guardarex/{{contacto.id_contacto_exportador}}">
+            <h1>Edición</h1 id="h1" myid="{{contacto.id_exportador}}">
+            <p>Modifica los Datos del contacto <strong>{{contacto.nombre_contacto_ex}}</strong></p>
+            <hr>
+            <label><b>Nombre</b></label>
+            <input class="form-control" type="text"  id="nombre" placeholder="Nombre" name="nombre" value="{{contacto.nombre_contacto_ex}}" autocomplete="off" required>
+            
+            <label><b>Contacto</b></label>
+            <input class="form-control" type="email"  id="email" placeholder="Email" name="email" value="{{contacto.email_contacto_ex}}" autocomplete="off" required>
+             
+            <hr>
+            <button id="boton44" myid="{{contacto.id_exportador}}"class="btn btn-primary">Modificar</button>
+            <a style="float:right" class="btn btn-primary" href="/contactoexportador/{{contacto.id_exportador}}">Volver</a>  
+         </form>
+        </div>
+    </div>
+
+    <script>
+   
+    $("#boton44").on('click',function(e) {
+   
+    e.preventDefault();
+
+    let email_contacto = $("#email").val();
+    let contacto_nombre = $("#nombre").val();
+    let id = $(this).attr('myid');
+
+    fetch($("#form").attr('action'),{
+        method:'POST',
+        headers:{'Content-type': 'application/json'}, 
+        body: JSON.stringify({nombre:contacto_nombre,contacto:email_contacto})
+        
+        }).then(res => res.text())
+          .then(data =>{
+              if(data==="vacio"){
+                  Swal.fire({
+                    icon: "error",
+                    html:'<span style="background:white color:black"><strong>Debe Rellenar los Datos</strong><span>'
+                })
+              }
+              if(data==="Success"){
+  
+             Swal.fire({
+                    icon: "success",
+                    html:'<span style="background:white color:black"><strong>Modificado Con Exito!</strong><span>',
+                    timer:1000,
+                    showConfirmButton: false,
+            
+                onClose: () => {
+                location.replace(`/contactoexportador/${id}`);
+                }
+        });
+      }
+    })
+});
+     </script>  
+
+
+
+
+
+
+
+
+
+    {{> footer }}

@@ -1,0 +1,41 @@
+{{> head }}
+
+{{> navbar }}
+
+<div class="container">
+  <div class="center">
+    <div class="list-group">
+      <form class="form-group">
+  {{#if role}}
+  <div>
+  <a href="/cusuarios" class="list-group-item list-group-item-action text-center tag-a"><strong>Control Usuarios</strong></a>
+  </div>
+
+  <div>
+      <a href="/cagencias" class="list-group-item list-group-item-action text-center tag-a"><strong>Control Agencias</strong></a>
+  </div>
+
+  <div>
+      <a href="/cexportador" class="list-group-item list-group-item-action text-center tag-a"><strong>Control Exportadores</a></strong>
+  </div>
+
+    <div>
+      <a href="/cregistros" class="list-group-item list-group-item-action text-center tag-a"><strong>Ver Registros</strong></a>
+  </div>
+
+   <div>
+      <a href="/crearegistro" class="list-group-item list-group-item-action text-center tag-a"><strong>Crear Registro</strong></a>
+  </div>
+  {{else}}
+      <div>
+      <a href="/crearegistro" class="list-group-item list-group-item-action text-center tag-a"><strong>Crear Registro</strong></a>
+  </div>
+
+  {{/if}}
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{{> footer }}

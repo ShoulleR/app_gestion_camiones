@@ -1,0 +1,127 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.container_login {
+    position: absolute;
+    text-align: center;
+    background-color: #FFFAFA;
+    max-width: 800px;
+    width: 90%;
+    padding: 10px;
+    margin-top: 45px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.list-group div {
+    padding: 6px;
+}
+
+.tag-a {
+    text-decoration: none !important;
+    background-image: linear-gradient(black, black);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size .3s;
+    color: black;
+}
+
+.tag-a:hover {
+    background-size: 100% 1px;
+    color: black;
+}
+
+.float-right {
+    display: inline-flex;
+    color: black;
+}
+
+.float-right li {
+    list-style: none;
+}
+
+.center {
+    margin: 10px;
+    margin-top: 20vh;
+}
+
+footer {
+    background-color: #5A68D2;
+    position: absolute;
+    bottom: 1vh;
+    width: 100%;
+    height: 40px;
+    color: black;
+    text-align: center;
+}
+
+.body {
+    background-color: #5A68D2;
+    height: 100vh;
+    width: 100%;
+}
+
+h2 {
+    padding: 5px;
+    background-color: #5A68D2;
+    color: black;
+    font-size: 10vw;
+}
+
+.form-group {
+    padding: 25px;
+}
+
+.form-group input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.form-group label {
+    font-family: "Roboto", sans-serif;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.boton-login {
+    width: 150px;
+    background-color: #5A68D2;
+    color: black;
+    border-radius: 3px;
+    float: right;
+    padding: 4px;
+    margin: 6px;
+}
+
+.form {
+    position: absolute;
+    width: 50%;
+    top: 20vh;
+    background-color: #FFFAFA;
+    border-radius: 10%;
+}
+
+.form input {
+    padding: 4px;
+}
+
+.form label {
+    padding: 4px;
+}
+
+.container table {
+    position: absolute;
+    top: 30vh;
+    max-width: 600px;
+}

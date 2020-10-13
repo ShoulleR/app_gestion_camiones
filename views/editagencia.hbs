@@ -1,0 +1,65 @@
+{{> head }}
+
+{{> navbar }}
+
+
+<div class="container">
+       <div class="form">
+           <form id="form" class="form-group" action="/modi/{{data.id}}">
+            <h1>Edición</h1>
+            <p>Modifica los Datos de la Agencia {{data.nombre}}</p>
+            <hr>
+            <label><b>Nombre</b></label>
+            <input class="form-control" type="text"  id="nombre" placeholder="Nombre" name="nombre" value="{{data.nombre}}" autocomplete="off" required>
+            
+            <label><b>Contacto</b></label>
+            <input class="form-control" type="email"  id="email" placeholder="Email" name="email" value="{{data.contacto}}" autocomplete="off" required>
+             
+            <hr>
+            <button id="boton-mod" class="btn btn-primary">Modificar</button>
+            <a style="float:right" class="btn btn-primary" href="/cagencias">Volver</a>  
+         </form>
+        </div>
+    </div>
+
+<script>
+   
+    $("#boton-mod").on('click',function(e) {
+   
+    e.preventDefault();
+
+    let contacto = $("#email").val();
+    let nombre = $("#nombre").val();
+
+    fetch($("#form").attr('action'),{
+        method:'POST',
+        headers:{'Content-type': 'application/json'}, 
+        body: JSON.stringify({nombre:nombre,contacto:contacto})
+        
+        }).then(res => res.text())
+          .then(data =>{
+              if(data==="vacio"){
+                  Swal.fire({
+                    icon: "error",
+                    html:'<span style="background:white color:black"><strong>Debe Rellenar los Datos</strong><span>'
+                })
+              }
+              if(data==="Success"){
+  
+             Swal.fire({
+                    icon: "success",
+                    html:'<span style="background:white color:black"><strong>Modificado Con Exito!</strong><span>',
+                    timer:1000,
+                    showConfirmButton: false,
+            
+                onClose: () => {
+                location.replace("/cagencias");
+                }
+        });
+      }
+    })
+});
+     </script>          
+
+
+{{> footer }}

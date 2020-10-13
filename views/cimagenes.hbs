@@ -1,0 +1,408 @@
+{{> head }}
+
+ <ul hidden class="nav nav-pills">
+        <li>
+            <a id="tag1" data-toggle="tab" href="#panel1">1</a>
+        </li>
+        <li>
+            <a id="tag2" data-toggle="tab" href="#panel2">2</a>
+        </li>
+
+        <li>
+            <a id="tag3" data-toggle="tab" href="#panel3">3</a>
+        </li>
+
+        <li>
+            <a id="tag4" data-toggle="tab" href="#panel4">4</a>
+        </li>
+
+        <li>
+            <a id="tag5" data-toggle="tab" href="#panel5">5</a>
+        </li>
+    </ul>
+
+<div class="container tab-content">
+<div id="panel1" class="col-6 tab-pane fade in show active">
+       <div class="form container" style="top: 15vh;">
+           <form  class="form-group" id="form1" enctype="multipart/form-data">
+            <h2 style="background-color: white;">1.Apertura de Camión</h2>
+            <hr>
+            <label><b>Subir Imagen</b></label>
+            <input style="flex-direction:column;"id="upload1" name="upload1" class="form-control" myid="{{id_registro}}" type="file" accept="image/*">
+            <hr>
+            <a id="ver1" onclick=ver('upload1') class="btn btn-primary" style="color:white">Ver Foto</a>
+            <a id="etapa1" class="btn btn-primary" style="color:white;">Siguiente</a> 
+         </form>
+        </div>
+    </div>
+
+    <div id="panel2" class="col-6 tab-pane fade">
+       <div class="form container" style="top: 15vh;">
+           <form  class="form-group" id="form2" enctype="multipart/form-data">
+            <h2 style="background-color: white;">2.Inicio de Descarga</h2>
+            <hr>
+            <label><b>Subir Imagen</b></label>
+            <input id="upload2" name="upload2" class="form-control" myid2="{{id_registro}}" type="file" accept="image/*">
+            <hr>
+            <a id="volver2" class="btn btn-primary" style="color:white">Volver</a>
+            <a id="ver2" onclick=ver('upload2') class="btn btn-primary" style="color:white;">Ver Foto</a>
+            <a id="etapa2" class="btn btn-primary" style="float:right;color:white">Siguiente</a> 
+         </form>
+        </div>
+    </div>
+
+     <div id="panel3" class="col-6 tab-pane fade">
+       <div class="form container" style="top: 15vh;">
+           <form  class="form-group" id="form3" enctype="multipart/form-data">
+            <h2 style="background-color: white;">3.Fin de Descarga</h2>
+            <hr>
+            <label><b>Subir Imagen</b></label>
+            <input id="upload3" name="upload3" class="form-control" myid3="{{id_registro}}" type="file" accept="image/*">
+            <hr>
+            <a  id="volver3" class="btn btn-primary" style="color:white">Volver</a>
+            <a id="ver3" onclick=ver('upload3') class="btn btn-primary" style="color:white;">Ver Foto</a>
+            <a id="etapa3" class="btn btn-primary" style="float:right;color:white">Siguiente</a> 
+         </form>
+        </div>
+    </div>
+
+       <div id="panel4" class="col-6 tab-pane fade">
+       <div class="form container" style="top: 15vh;">
+           <form  class="form-group" id="form4" enctype="multipart/form-data">
+            <h2 style="background-color: white;">4.Cajas Dañadas</h2>
+            <hr>
+            <label><b>Subir Imagen</b></label>
+            <input id="upload4" name="upload4" class="form-control" type="file" myid4="{{id_registro}}" accept="image/*">
+            <hr>
+            <a id="volver4" class="btn btn-primary" style="color:white">Volver</a>
+            <a id="ver4" onclick=ver('upload4') class="btn btn-primary" style="color:white;">Ver Foto</a>
+            <a id="etapa4" class="btn btn-primary" style="float:right;color:white">Siguiente</a> 
+         </form>
+        </div>
+    </div>
+
+
+     <div id="panel5" class="col-6 tab-pane fade">
+       <div class="form container" style="top: 15vh;">
+           <form  class="form-group" id="form5" enctype="multipart/form-data">
+            <h2 style="background-color: white;">5.Sobre en Elementos</h2>
+            <hr>
+            <label><b>Subir Imagen</b></label>
+            <input style="flex-direction:column;"id="upload5" name="upload5" class="form-control" myid="{{id_registro}}" type="file" accept="image/*">
+            <hr>
+            <a id="volver5" class="btn btn-primary" style="color:white;">Volver</a>
+            <a id="ver5" onclick=ver('upload5') class="btn btn-primary" style="color:white">Ver Foto</a>   
+         </form>
+        </div>
+    </div> 
+</div>
+
+    <a style="position:absolute;bottom:5vh;left:15%;" class="btn btn-dark" href="/crearegistro">Volver a Registro</a>
+    <a style="position:absolute;bottom:5vh;right:15%;" id="fin" myidf="{{id_registro}}"class="btn btn-dark" href="#">Finalizar</a>
+    
+
+
+   
+
+    <script>
+        //FUNCTION VER
+    function ver(str){
+                      let seleccionArchivos = document.querySelector(`#${str}`);
+                      let archivos = seleccionArchivos.files;
+                    
+                     
+                    if(archivos.length<1){
+                         Swal.fire({
+                          icon:'error',
+                          html:'<span style="background-color:white">No existe la Imagen</span>'
+                      })
+                         
+                    }
+                      
+                      let primerArchivo = archivos[0];
+                      let objectURL = URL.createObjectURL(primerArchivo);
+
+                     Swal.fire({
+                          title:'<span style="background-color:white">Imagen Subida!</span>',
+                          imageUrl: objectURL,
+                          imageSize: '600x600'
+                        })
+                    }
+
+
+
+
+
+        //BOTON FINALIZAR
+        $('#fin').on('click',function(){
+
+            var id = $(this).attr("myidf");
+
+               Swal.fire({
+                        title: '<span style="background-color:white">Estas Seguro?</span>',
+                        html: '<span style="background-color:white">No Podras revertir si continuas!</span>',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si,Estoy Seguro'
+                     }).then((result) => {
+                       if (result.isConfirmed) {
+
+                   
+
+                     const seleccionArchivos =  document.getElementById("upload1");
+                     const seleccionArchivos2 = document.getElementById("upload2");
+                     const seleccionArchivos3 = document.getElementById("upload3");
+                     const seleccionArchivos4 = document.getElementById("upload4");
+                     const seleccionArchivos5 = document.getElementById("upload5");
+
+                     let archivos = seleccionArchivos.files;
+                     let archivos2 = seleccionArchivos2.files;
+                     let archivos3 = seleccionArchivos3.files;
+                     let archivos4 = seleccionArchivos4.files;
+                     let archivos5 = seleccionArchivos5.files;
+
+
+                     const formData = new FormData();
+                    
+                     formData.append("etapa1", archivos[0]);
+                     formData.append("etapa2", archivos2[0]);
+                     formData.append("etapa3", archivos3[0]);
+                     formData.append("etapa4", archivos4[0]);
+                     formData.append("etapa5", archivos5[0]);
+                     
+                       
+                    for(const [key,value] of formData){
+                        console.log(`key: ${key}`);
+                        console.log(`value:${value}`);
+                    }
+
+                    fetch(`/check/${id}`,{
+                        method:'POST',
+                        body: formData
+                    }).then(res => res.text())
+                      .then(data=>{
+                          if(data==='vacio'){
+                              Swal.fire({
+                                  icon:'error',
+                                  html:'<span style="background-color:white">Debe haber minimo una foto!</span>'
+                              })
+                          }
+
+                          if(data==='Success'){
+                              Swal.fire({
+                                  icon:'success',
+                                  html:'<span style="background-color:white">Finalizado!</span>',
+                                  onClose: () =>{
+                                      location.replace("/dashboard");
+                                  }
+                              })
+                          }
+                      })
+                        
+                            
+                       }
+                    })
+
+                });
+
+
+        //BOTONES UPLOADS
+
+        //ETAPA 1
+       const seleccionArchivos = document.querySelector("#upload1");
+
+        seleccionArchivos.addEventListener('change', function(e){
+            e.preventDefault();
+            let id_registro = $(this).attr("myid")
+            let archivos = seleccionArchivos.files;
+
+                // Si no hay archivos salimos de la función y quitamos la imagen
+                if (!archivos || !archivos.length) {
+                     Swal.fire({
+                         html:'<span style="backbround-color:white">Seleccione un Archivo.</span>'
+                     });
+                     return;
+                    }
+               
+                let primerArchivo = archivos[0];
+                let objectURL = URL.createObjectURL(primerArchivo);
+
+            Swal.fire({
+                 title:'<span style="background-color:white">Imagen Subida!</span>',
+                 imageUrl: objectURL,
+                 imageSize: '600x600'
+              })
+         })
+        //ETAPA1 FIN
+
+
+        //ETAPA2 INICIO
+        const seleccionArchivos2 = document.querySelector("#upload2");
+
+       seleccionArchivos2.addEventListener('change', function(e){
+            e.preventDefault();
+            let id_registro = $(this).attr("myid")
+            let archivos = seleccionArchivos2.files;
+
+                // Si no hay archivos salimos de la función y quitamos la imagen
+                if (!archivos || !archivos.length) {
+                     Swal.fire({
+                         html:'<span style="backbround-color:white">Seleccione un Archivo.</span>'
+                     });
+                     return;
+                    }
+               
+                let primerArchivo = archivos[0];
+                let objectURL = URL.createObjectURL(primerArchivo);
+
+            Swal.fire({
+                 title:'<span style="background-color:white">Imagen Subida!</span>',
+                 imageUrl: objectURL,
+                 imageSize: '600x600'
+              })
+         })
+
+        //ETAPA2 FIN
+
+
+          //ETAPA3 INICIO
+        const seleccionArchivos3 = document.querySelector("#upload3");
+
+       seleccionArchivos3.addEventListener('change', function(e){
+            e.preventDefault();
+            let id_registro = $(this).attr("myid")
+            let archivos = seleccionArchivos3.files;
+
+                // Si no hay archivos salimos de la función y quitamos la imagen
+                if (!archivos || !archivos.length) {
+                     Swal.fire({
+                         html:'<span style="backbround-color:white">Seleccione un Archivo.</span>'
+                     });
+                     return;
+                    }
+               
+                let primerArchivo = archivos[0];
+                let objectURL = URL.createObjectURL(primerArchivo);
+
+            Swal.fire({
+                 title:'<span style="background-color:white">Imagen Subida!</span>',
+                 imageUrl: objectURL,
+                 imageSize: '600x600'
+              })
+         })
+            
+  
+
+        //ETAPA3 FIN
+
+
+         //ETAPA4 INICIO
+        const seleccionArchivos4 = document.querySelector("#upload4");
+
+       seleccionArchivos4.addEventListener('change', function(e){
+            e.preventDefault();
+            let id_registro = $(this).attr("myid")
+            let archivos = seleccionArchivos4.files;
+
+                // Si no hay archivos salimos de la función y quitamos la imagen
+                if (!archivos || !archivos.length) {
+                     Swal.fire({
+                         html:'<span style="backbround-color:white">Seleccione un Archivo.</span>'
+                     });
+                     return;
+                    }
+               
+                let primerArchivo = archivos[0];
+                let objectURL = URL.createObjectURL(primerArchivo);
+
+            Swal.fire({
+                 title:'<span style="background-color:white">Imagen Subida!</span>',
+                 imageUrl: objectURL,
+                 imageSize: '600x600'
+              })
+         })
+            
+            
+     
+
+        //ETAPA4 FIN
+
+         //ETAPA5 INICIO
+        const seleccionArchivos5 = document.querySelector("#upload5");
+
+       seleccionArchivos5.addEventListener('change', function(e){
+            e.preventDefault();
+            let id_registro = $(this).attr("myid")
+            let archivos = seleccionArchivos5.files;
+
+                // Si no hay archivos salimos de la función y quitamos la imagen
+                if (!archivos || !archivos.length) {
+                     Swal.fire({
+                         html:'<span style="backbround-color:white">Seleccione un Archivo.</span>'
+                     });
+                     return;
+                    }
+               
+                let primerArchivo = archivos[0];
+                let objectURL = URL.createObjectURL(primerArchivo);
+
+            Swal.fire({
+                 title:'<span style="background-color:white">Imagen Subida!</span>',
+                 imageUrl: objectURL,
+                 imageSize: '600x600'
+              })
+         })
+
+        //ETAPA5 FIN
+
+
+        //BOTON SIGUIENTE
+        $("#etapa1").on('click',function(e){
+            $("#tag2").trigger('click');
+        });
+
+        $("#etapa2").on('click',function(e){
+            $("#tag3").trigger('click');
+        });
+
+          $("#etapa3").on('click',function(e){
+            $("#tag4").trigger('click');
+        });
+
+          $("#etapa4").on('click',function(e){
+            $("#tag5").trigger('click');
+        });
+
+        //TAG VOLVER
+
+        $("#volver2").on('click',function(e){
+            $("#tag1").trigger('click');
+        });
+
+        $("#volver3").on('click',function(e){
+            $("#tag2").trigger('click');
+        });
+
+        $("#volver4").on('click',function(e){
+            $("#tag3").trigger('click');
+        });
+
+        $("#volver5").on('click',function(e){
+            $("#tag4").trigger('click');
+        })
+      
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</body>
+</html>
+
+
+
+
+
+ 

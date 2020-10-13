@@ -1,0 +1,80 @@
+{{> head }}
+
+{{> navbar }}
+
+
+<div class="container">
+       <div class="form">
+           <form id="form" class="form-group" action="/modificar/{{data.id}}">
+            <h1>Edición</h1>
+            <p>Modifica los Datos del Usuario {{data.nombre}}</p>
+            <hr>
+            <label><b>Nombre</b></label>
+            <input class="form-control" type="text"  id="nombre" placeholder="Nombre" name="nombre" value="{{data.nombre}}" autocomplete="off" required>
+            
+            <label><b>Email</b></label>
+            <input class="form-control" type="email"  id="email" placeholder="Email" name="email" value="{{data.email}}" autocomplete="off" required>
+
+           <label for="sel1"><b>Cargo</b></label>
+            <select class="form-control" name="sel1" id="sel1" required>
+             <option disabled selected>Seleccione un Cargo</option>
+             <option value="OP_ROLE">OP_ROLE</option>
+             <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+            </select>
+             
+            <hr>
+            <button id="boton-mod" class="btn btn-primary">Modificar</button>
+            <a style="float:right" class="btn btn-primary" href="/cusuarios">Volver</a>  
+         </form>
+        </div>
+    </div>
+
+
+<script>
+
+    var role;
+
+    $('#sel1').on('change',function(event) {
+
+     role = $(this).val();
+});
+   
+    $("#boton-mod").on('click',function(e) {
+   
+    e.preventDefault();
+
+    let email = $("#email").val();
+    let nombre = $("#nombre").val();
+
+    fetch($("#form").attr('action'),{
+        method:'POST',
+        headers:{'Content-type': 'application/json'}, 
+        body: JSON.stringify({nombre:nombre,email:email, role:role})
+        
+        }).then(res => res.text())
+          .then(data =>{
+              if(data==="vacio"){
+                  Swal.fire({
+                      icon:'error',
+                      html:'<span style="background:white color:black"><strong>Debe Rellenar los Datos</strong><span>',
+                  });
+              }
+              if(data==="Success"){
+  
+             Swal.fire({
+                    icon: "success",
+                    html:'<span style="background:white color:black"><strong>Modificado Con Exito!</strong><span>',
+                    timer:1000,
+                    showConfirmButton: false,
+            
+                onClose: () => {
+                location.replace("/cusuarios");
+                }
+        });
+      }
+    })
+});
+     </script>          
+
+
+{{> footer }}
